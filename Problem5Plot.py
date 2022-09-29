@@ -10,7 +10,7 @@ if __name__ == '__main__':
     xValues = data[:, :2]
     yValues = data[:, 2]
     newW, historyFW = bgd_l2(xValues, yValues, np.array([(0), (0)]), 0.05, 0.1, 0.001, 50)
-    print(newW)
+    print(historyFW)
 
 
     # plt.scatter(xValues, yValues)

@@ -57,11 +57,12 @@ def bgd_l2(data, y, w, eta, delta, lam, num_iter):
             elif y_i <= np.dot(np.transpose(new_w), x_i) - delta:
                 gradient = computeFunctionGradient(new_w, data, y, lam, delta, 3)
                 
-            print(new_w)
+            
             new_w = new_w - (eta * (gradient))
             
         
         iteration += 1
+
 
     return new_w, history_fw
 
