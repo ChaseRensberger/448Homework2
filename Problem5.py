@@ -1,6 +1,8 @@
 import math
 import random
 import numpy as np
+import warnings
+warnings.filterwarnings('ignore')
 
 
 def compGsubDelta(w, x, y, delta):
@@ -15,6 +17,7 @@ def compGsubDelta(w, x, y, delta):
 def computeFunction(w, x, y, lam, delta):
     runningSum = 0
     for x_i, y_i in zip(x, y):
+        pass
         runningSum += compGsubDelta(w, x_i, y_i, delta)
     return (((runningSum)/len(x)) + (lam*(sum(w ** 2))))
 
@@ -41,24 +44,31 @@ def bgd_l2(data, y, w, eta, delta, lam, num_iter):
 
         history_fw.append(computeFunction(new_w, data, y, lam, delta))
 
-        # for x_i, y_i in zip(data, y):
-            # gradient = 0
+        for x_i, y_i in zip(data, y):
+            gradient = 0
 
-            # if y_i >= np.dot(np.transpose(new_w), x_i) + delta:
-            #     gradient = computeFunctionGradient(new_w, data, y, lam, delta, 1)
+            if y_i >= np.dot(np.transpose(new_w), x_i) + delta:
+                gradient = computeFunctionGradient(new_w, data, y, lam, delta, 1)
 
-            # elif abs(y_i - np.dot(np.transpose(new_w), x_i)) < delta:
-            #     gradient = computeFunctionGradient(new_w, data, y, lam, delta, 2)
+            elif abs(y_i - np.dot(np.transpose(new_w), x_i)) < delta:
+                # print("2222222222222")
+                gradient = computeFunctionGradient(new_w, data, y, lam, delta, 2)
 
-            # elif y <= np.dot(np.transpose(new_w), x_i) - delta:
-            #     gradient = computeFunctionGradient(new_w, data, y, lam, delta, 3)
+            elif y_i <= np.dot(np.transpose(new_w), x_i) - delta:
+                gradient = computeFunctionGradient(new_w, data, y, lam, delta, 3)
                 
-
-            # newW = newW - (eta * (gradient))
+            print(new_w)
+            new_w = new_w - (eta * (gradient))
+            
         
         iteration += 1
 
     return new_w, history_fw
+
+
+
+
+
 
 
 def sgd_l2(data, y, w, eta, delta, lam, num_iter, i=-1):
