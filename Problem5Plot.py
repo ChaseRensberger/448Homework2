@@ -2,13 +2,17 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 
-# from Problem5 import bgd_l2
+from Problem5 import bgd_l2
 
 if __name__ == '__main__':
     data = np.load("data.npy")
     data = np.insert(data, 1, np.ones(len(data)), axis=1) # Add column of ones
-    # xValues = data[:, 0]
-    # yValues = data[:, 2]
+    xValues = data[:, 0]
+    yValues = data[:, 2]
+    newW, historyFW = bgd_l2(xValues, yValues, np.array([(0), (0)]), 0.05, 0.1, 0.001, 50)
+    print(newW)
+
+
     # plt.scatter(xValues, yValues)
     # plt.show()
 

@@ -12,40 +12,60 @@ def compGsubDelta(w, x, y, delta):
         (y - np.dot(np.transpose(w), x) + delta) ** 2
     return -1
 
-def computeFunction(w, x, y, lam):
+def computeFunction(w, x, y, lam, delta):
     runningSum = 0
     for x_i, y_i in zip(x, y):
         runningSum += compGsubDelta(w, x_i, y_i, delta)
     return (((runningSum)/len(x)) + (lam*(sum(w ** 2))))
 
-def computeFunctionGradient(w, x, y, lam, cond):
-    pass
-
-
+def computeFunctionGradient(w, x, y, lam, delta, cond):
+    runningSum = 0    
+    n = len(x)
+    if cond == 1:
+        for x_i, y_i in zip(x, y):
+            runningSum += ((y_i - np.dot(np.transpose(w), x_i) - delta) * x_i)
+        return ((runningSum * (n/2)) + (2*lam*sum(w)))
+    elif cond == 2:
+        return (2*lam*sum(w))
+    elif cond == 3:
+        for x_i, y_i in zip(x, y):
+            runningSum += ((y_i - np.dot(np.transpose(w), x_i) + delta) * x_i)
+        return ((runningSum * (n/2)) + (2*lam*sum(w)))
+    return -1
 
 def bgd_l2(data, y, w, eta, delta, lam, num_iter):
     history_fw = []
+    new_w = w
     iteration = 0
-    # w = np.array([(0), (0)])
-    newW = w
     while iteration < num_iter:
-        history_fw.append(computeFunction())
-        for x_i, y_i in zip(data, y):
 
-            newW = newW + eta * 
+        history_fw.append(computeFunction(new_w, data, y, lam, delta))
+
+        # for x_i, y_i in zip(data, y):
+            # gradient = 0
+
+            # if y_i >= np.dot(np.transpose(new_w), x_i) + delta:
+            #     gradient = computeFunctionGradient(new_w, data, y, lam, delta, 1)
+
+            # elif abs(y_i - np.dot(np.transpose(new_w), x_i)) < delta:
+            #     gradient = computeFunctionGradient(new_w, data, y, lam, delta, 2)
+
+            # elif y <= np.dot(np.transpose(new_w), x_i) - delta:
+            #     gradient = computeFunctionGradient(new_w, data, y, lam, delta, 3)
+                
+
+            # newW = newW - (eta * (gradient))
         
         iteration += 1
 
-   
-    
-    # return new_w, history_fw
+    return new_w, history_fw
 
 
 def sgd_l2(data, y, w, eta, delta, lam, num_iter, i=-1):
     # return new_w, history_fw
     pass
 
-bgd_l2(np.load("data.npy"), 0, 0, 0, 0, 0, 0)
+
 
 # A = np.array([(1), (4)])
     # B = np.array([(1), (2)])
