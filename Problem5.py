@@ -17,7 +17,6 @@ def compGsubDelta(w, x, y, delta):
 def computeFunction(w, x, y, lam, delta):
     runningSum = 0
     for x_i, y_i in zip(x, y):
-        pass
         runningSum += compGsubDelta(w, x_i, y_i, delta)
     return (((runningSum)/len(x)) + (lam*(sum(w ** 2))))
 
@@ -57,7 +56,7 @@ def bgd_l2(data, y, w, eta, delta, lam, num_iter):
             elif y_i <= np.dot(np.transpose(new_w), x_i) - delta:
                 gradient = computeFunctionGradient(new_w, data, y, lam, delta, 3)
                 
-            
+            print(new_w)
             new_w = new_w - (eta * (gradient))
             
         
