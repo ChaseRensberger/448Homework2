@@ -9,7 +9,8 @@ if __name__ == '__main__':
     data = np.insert(data, 1, np.ones(len(data)), axis=1) # Add column of ones
     xValues = data[:, :2]
     yValues = data[:, 2]
-    newW, historyFW = bgd_l2(xValues, yValues, np.array([(0), (0)]), 0.05, 0.1, 0.001, 50)
+    newW, historyFW = bgd_l2(xValues, yValues, np.array([(0), (0)]), 0.05, 0.1, 0.001, 2)
+    print(newW)
     # print(newW)
 
 

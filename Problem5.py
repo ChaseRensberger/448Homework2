@@ -21,7 +21,7 @@ def computeFunction(w, x, y, lam, delta):
     return (((runningSum)/len(x)) + (lam*(sum(w ** 2))))
 
 def computeFunctionGradient(w, x, y, lam, delta, cond):
-    runningSum = 0    
+    runningSum = 0
     n = len(x)
     if cond == 1:
         for x_i, y_i in zip(x, y):
@@ -39,24 +39,23 @@ def bgd_l2(data, y, w, eta, delta, lam, num_iter):
     history_fw = []
     new_w = w
     iteration = 1
+
     while iteration < num_iter + 1:
 
-        history_fw.append(computeFunction(new_w, data, y, lam, delta))
-
+        # history_fw.append(computeFunction(new_w, data, y, lam, delta))
         for x_i, y_i in zip(data, y):
             gradient = 0
 
             if y_i >= np.dot(np.transpose(new_w), x_i) + delta:
+                #pass in all data and y?
                 gradient = computeFunctionGradient(new_w, data, y, lam, delta, 1)
 
             elif abs(y_i - np.dot(np.transpose(new_w), x_i)) < delta:
-                # print("2222222222222")
                 gradient = computeFunctionGradient(new_w, data, y, lam, delta, 2)
 
             elif y_i <= np.dot(np.transpose(new_w), x_i) - delta:
                 gradient = computeFunctionGradient(new_w, data, y, lam, delta, 3)
                 
-            print(new_w)
             new_w = new_w - (eta * (gradient))
             
         
@@ -67,32 +66,6 @@ def bgd_l2(data, y, w, eta, delta, lam, num_iter):
 
 
 def sgd_l2(data, y, w, eta, delta, lam, num_iter, i=-1):
-        history_fw = []
-        new_w = w
-        iteration = 1
-        while iteration < num_iter + 1:
-
-            history_fw.append(computeFunction(new_w, data, y, lam, delta))
-
-            for x_i, y_i in zip(data, y):
-                gradient = 0
-
-                if y_i >= np.dot(np.transpose(new_w), x_i) + delta:
-                    gradient = computeFunctionGradient(new_w, data, y, lam, delta, 1)
-
-                elif abs(y_i - np.dot(np.transpose(new_w), x_i)) < delta:
-                    # print("2222222222222")
-                    gradient = computeFunctionGradient(new_w, data, y, lam, delta, 2)
-
-                elif y_i <= np.dot(np.transpose(new_w), x_i) - delta:
-                    gradient = computeFunctionGradient(new_w, data, y, lam, delta, 3)
-                    
-                print(new_w)
-                new_w = new_w - (1/math.sqrt(iteration) * (gradient))
-                
-            
-            iteration += 1
-
 
         return new_w, history_fw
 
