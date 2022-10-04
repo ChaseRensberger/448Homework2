@@ -4,18 +4,22 @@ import matplotlib.pyplot as plt
 
 from Problem5 import bgd_l2
 
+def plotGD(data, y, w, eta, delta, lam, num_iter):
+    new_w, history_fw = bgd_l2(data, y, w, eta, delta, lam, num_iter)
+    plt.plot(history_fw)
+    plt.xlabel('Iteration')
+    plt.ylabel('f(w)')
+    plt.show()
+
 if __name__ == '__main__':
     data = np.load("data.npy")
     data = np.insert(data, 1, np.ones(len(data)), axis=1) # Add column of ones
     xValues = data[:, :2]
     yValues = data[:, 2]
-    newW, historyFW = bgd_l2(xValues, yValues, np.array([(0), (0)]), 0.05, 0.1, 0.001, 2)
-    print(newW)
-    # print(newW)
+    plotGD(xValues, yValues, np.array([(0), (0)], dtype=float), 0.05, 0.1, 0.001, 50)
+    
 
-
-    # plt.scatter(xValues, yValues)
-    # plt.show()
+    
 
 
 
